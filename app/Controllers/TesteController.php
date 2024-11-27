@@ -1,56 +1,76 @@
 <?php
-// Inclua o modelo Teste para interagir com o banco de dados
 require_once __DIR__ . '/../Models/Teste.php';
 
-class TesteController
+class TesteController extends BaseController
 {
-
-    public function consulta()
+    public function index()
     {
-        // Lógica para buscar e exibir os registros
         $dados = Teste::getAll();
-        include __DIR__ . '/../Views/consulta.php';
+
+        // Os dados estarão disponíveis automaticamente na view
+        return (['dados' => $dados]);
     }
 
-    public function inserir()
+    public function cadastrar()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Quando o formulário for enviado
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $descricao = $_POST['descricao'];
+            $success = Teste::insert($descricao);
 
-            // Chama o modelo para inserir os dados no banco
-            Teste::insert($descricao);
+            if ($success) {
+                // Mensagem de sucesso
+                $this->addSuccessMessage('Novo registro adicionado com sucesso!');
+            } else {
+                // Mensagem de erro
+                $this->addDangerMessage('Erro ao adicionar o registro.');
+            }
 
-            // Redireciona para a tela de consulta após inserção
-            header('Location: /consulta');
+            // Redireciona para consulta após inserção
+            header('Location: /teste/index');
             exit;
         }
-
-        // Exibe o formulário de inserção
-        include __DIR__ . '/../Views/cadastrar.php';
     }
 
     public function editar($id)
     {
-        // Verifica se foi enviado o formulário para editar o item
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $descricao = $_POST['descricao'];
-            Teste::update($id, $descricao); // Atualiza o item
-            header('Location: /consulta');  // Redireciona para a consulta
+            // Suponha que Teste::update seja um método que atualiza o banco de dados
+            $updated = Teste::update($id, $descricao);
+
+            if ($updated) {
+                // Mensagem de sucesso
+                $this->addSuccessMessage('Registro atualizado com sucesso!');
+            } else {
+                // Mensagem de erro
+                $this->addDangerMessage('Erro ao atualizar o registro.');
+            }
+
+            // Redireciona para consulta após edição
+            header('Location: /teste/index');
             exit;
         }
 
-        // Pega o item do banco de dados para preencher o formulário
-        $item = Teste::getById($id);
-        include __DIR__ . '/../Views/editar.php'; // Exibe a view de edição
-    }
+        $registro = Teste::getById($id);
 
+        // Torna o registro disponível para a view
+        return (['item' => $registro]);
+    }
 
     public function excluir($id)
     {
-        // Lógica para excluir um registro
-        Teste::delete($id);
-        header('Location: /consulta');
+        $deleted = Teste::delete($id);
+
+        if ($deleted) {
+            // Mensagem de sucesso
+            $this->addSuccessMessage('Registro Excluido com sucesso!');
+        } else {
+            // Mensagem de erro
+            $this->addDangerMessage('Erro ao excluir o registro.');
+        }
+
+        // Redireciona para consulta após edição
+        header('Location: /teste/index');
         exit;
     }
 }
