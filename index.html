@@ -1,22 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=], initial-scale=1.0">
-    <title>LINHA DO TEMPO</title>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- INI: VIS -->
+    <!-- INI: VIS-NETWORK -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <!-- END: VIS-NETWORK -->
+    <!-- INI: VIS-TIMELINE -->
+    <script type="text/javascript"
+        src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
+        type="text/css" />
+    <!-- END: VIS-TIMELINE -->
+    <!-- END: VIS -->
+
+    <!-- INI: BOOTSTRAP -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- END: BOOTSTRAP -->
+
+    <!-- INI: CONFIGS PESSOAIS -->
     <link rel="stylesheet" href="style.css">
+    <!-- END: CONFIGS PESSOAIS -->
 </head>
 
 <body>
-
-    <div id="chart">
-        <div id="timeline-chart"></div>
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-3 p-3">
+                <div class="base rounded border" id="configs_base"></div>
+            </div>
+            <div class="col-sm-9 p-3">
+                <div class="base" id="nodes_base"></div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12 p-3">
+                <div class="base" id="history_base"></div>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="text/javascript">
+        // create an array with nodes
+        var nodes = new vis.DataSet([
+            { id: 1, label: 'Node 1' },
+            { id: 2, label: 'Node 2' },
+            { id: 3, label: 'Node 3' },
+            { id: 4, label: 'Node 4' },
+            { id: 5, label: 'Node 5' }
+        ]);
 
+        // create an array with edges
+        var edges = new vis.DataSet([
+            { from: 1, to: 3 },
+            { from: 1, to: 2 },
+            { from: 2, to: 4 },
+            { from: 2, to: 5 }
+        ]);
+
+        // create a network
+        var container = document.getElementById('nodes_base');
+
+        // provide the data in the vis format
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {};
+
+        // initialize your network!
+        var network = new vis.Network(container, data, options);
+    </script>
+
+    <script type="text/javascript">
+        var items = new vis.DataSet([
+            {
+                id: 1,
+                content: 'item 1',
+                start: new Date(Date.UTC(1950, 3, 20)),
+                title: 'Informações adicionais sobre o item 1', // Exibe no tooltip
+                teste: 'asdsdafasdf',
+                description: 'Este é um item representando 1950-04-20. Mais detalhes aqui.' // Informações adicionais
+            },
+            {
+                id: 2,
+                content: 'item 2',
+                start: new Date(Date.UTC(-200, 3, 14)),
+                title: 'Informações adicionais sobre o item 2',
+                teste: 'asdsdafasdf',
+                description: 'Este item representa o ano 200 a.C.'
+            },
+            {
+                id: 3,
+                content: 'item 3',
+                start: new Date(Date.UTC(2014, 3, 18)),
+                title: 'Informações adicionais sobre o item 3',
+                teste: 'asdsdafasdf',
+                description: 'Este item representa 2014-04-18.'
+            },
+            {
+                id: 4,
+                content: 'item 4',
+                start: new Date(Date.UTC(-1000, 0, 1)),
+                title: 'Informações adicionais sobre o item 4',
+                description: 'Este item representa 1000 a.C.',
+                teste: 'asdsdafasdf',
+            }
+        ]);
+
+        var container = document.getElementById('history_base');
+
+        var options = {
+            showCurrentTime: false,  // Não exibe a linha do tempo atual
+            tooltip: {
+                followMouse: false,
+                template: function (item) {
+                    // Exibindo conteúdo customizado no tooltip
+                    return '<strong>' + item.content + '</strong><br>' + item.description + '<br>' + item.teste;
+                }
+            }
+        };
+
+        var timeline = new vis.Timeline(container, items, options);
+
+        timeline.on('click', function (event) {
+            var clickedItem = event.item;
+
+            // Verificar se um item foi clicado
+            if (clickedItem) {
+                var itemData = items.get(clickedItem); // Recupera os dados do item clicado
+
+                // Mostrar o conteúdo do tooltip manualmente
+                alert('Você clicou no item: ' + itemData.content + '\n' + itemData.title + '\n' + itemData.teste);
+            }
+        });
+    </script>
 </body>
 
 </html>

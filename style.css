@@ -1,15 +1,31 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
-
-* {
-  font-family: 'Poppins', sans-serif;
+.base {
+  width: 100%; /* Preencherá toda a largura do elemento pai */
+  min-height: 200px; /* Defina uma altura fixa ou ajustável */
+  border-radius: 2%;
 }
 
-#chart {
-  margin: 35px auto;
-  opacity: 0.9;
+#nodes_base {
+  width: 100%; /* Preencherá toda a largura do elemento pai */
+  height: 300px; /* Defina uma altura fixa ou ajustável */
+  border: 1px solid lightgray;
 }
 
-#timeline-chart .apexcharts-toolbar {
-  opacity: 1;
-  border: 0;
+#history_base2 {
+  height: 400px;
+  border: 1px solid #ddd;
+}
+
+#custom-axis {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding: 0 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.axis-label {
+  text-align: center;
 }
