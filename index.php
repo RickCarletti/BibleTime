@@ -11,7 +11,7 @@ $requestUri = trim($_SERVER['REQUEST_URI'], '/');
 $requestParts = explode('/', $requestUri);
 
 // Extrair controlador, ação e parâmetros
-$controllerName = ucfirst(strtolower(!empty($requestParts[0]) ? $requestParts[0] : 'teste')) . 'Controller';
+$controllerName = ucfirst(strtolower(!empty($requestParts[0]) ? $requestParts[0] : 'person')) . 'Controller';
 $action = $requestParts[1] ?? 'index';
 $param = $requestParts[2] ?? null;
 

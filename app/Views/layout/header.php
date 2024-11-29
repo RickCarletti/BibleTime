@@ -36,11 +36,26 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/teste/index">Consulta</a>
+                        <!-- Menu de Teste -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuTeste" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Teste
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="menuTeste">
+                                <li><a class="dropdown-item" href="/teste/index">Consultar Testes</a></li>
+                                <li><a class="dropdown-item" href="/teste/cadastrar">Cadastrar Teste</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/teste/cadastrar">Cadastrar</a>
+
+                        <!-- Menu de Person -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuPerson" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pessoa
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="menuPerson">
+                                <li><a class="dropdown-item" href="/person/index">Consultar Pessoas</a></li>
+                                <li><a class="dropdown-item" href="/person/cadastrar">Cadastrar Pessoa</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

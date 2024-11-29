@@ -16,4 +16,15 @@ class BaseController
     {
         $_SESSION['messages'][] = ['type' => 'warning', 'message' => $message];
     }
+
+    function replaceEmptyStringsWithNull($data)
+    {
+        foreach ($data as $key => $value) {
+            if (is_string($value) && trim($value) === '') {
+                // Se o campo for uma string vazia ou apenas com espaços em branco, substitui por null
+                $data[$key] = null;
+            }
+        }
+        return $data;
+    }
 }
