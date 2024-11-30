@@ -43,8 +43,7 @@ try {
 }
 
 // Função para renderizar views automaticamente
-function renderAutomaticView($controllerName, $action, $data = [])
-{
+function renderAutomaticView($controllerName, $action, $data = []) {
     $controllerName = str_replace('Controller', '', $controllerName); // Remove 'Controller'
     $viewPath = __DIR__ . "/app/Views/{$controllerName}/{$action}.php";
 

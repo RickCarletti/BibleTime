@@ -1,18 +1,16 @@
 <?php
 require_once __DIR__ . '/../Models/Person.php';
+require_once __DIR__ . '/../Models/PersonPerson.php';
 
-class PersonController extends BaseController
-{
-    public function index()
-    {
+class PersonController extends BaseController {
+    public function index() {
         $dados = Person::getAll();
 
         // Os dados estarão disponíveis automaticamente na view
         return (['dados' => $dados]);
     }
 
-    public function cadastrar()
-    {
+    public function cadastrar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
                 'name' => $_POST['name'],
@@ -28,6 +26,7 @@ class PersonController extends BaseController
                 'generation' => $_POST['generation'],
                 'start_unknown' => isset($_POST['start_unknown']),
                 'end_unknown' => isset($_POST['end_unknown']),
+                'relationships' => $_POST['relationships']
             ];
 
             $success = Person::insert($this->replaceEmptyStringsWithNull($data));
@@ -40,11 +39,13 @@ class PersonController extends BaseController
 
             header('Location: /person/index');
             exit;
+        } else {
+            $people = Person::getAll();
+            return (['people' => $people]);
         }
     }
 
-    public function editar($id)
-    {
+    public function editar($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
                 'name' => $_POST['name'],
@@ -60,6 +61,7 @@ class PersonController extends BaseController
                 'generation' => $_POST['generation'],
                 'start_unknown' => isset($_POST['start_unknown']),
                 'end_unknown' => isset($_POST['end_unknown']),
+                'relationships' => $_POST['relationships']
             ];
 
             $updated = Person::update($id, $this->replaceEmptyStringsWithNull($data));
@@ -75,13 +77,13 @@ class PersonController extends BaseController
         }
 
         $registro = Person::getById($id);
-
+        $relationships = PersonPerson::getByPersonId($id);
+        $people = Person::getAll();
         // Torna o registro disponível para a view
-        return (['item' => $registro]);
+        return (['item' => $registro, 'relationships' => $relationships, 'people' => $people]);
     }
 
-    public function excluir($id)
-    {
+    public function excluir($id) {
         $deleted = Person::delete($id);
 
         if ($deleted) {

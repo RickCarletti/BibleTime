@@ -75,6 +75,13 @@
                         <label for="end_unknown" class="form-check-label">Fim desconhecido</label>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label">Relacionamentos</label>
+                        <div id="relationship-container">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm mt-2" id="add-relationship-btn">Adicionar Relacionamento</button>
+                    </div>
+
                     <div class="d-grid">
                         <button type="submit" class="btn btn-success">Inserir</button>
                     </div>
@@ -87,3 +94,45 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Script para adicionar relacionamentos
+    document.getElementById('add-relationship-btn').addEventListener('click', function() {
+        const container = document.getElementById('relationship-container');
+        const index = container.children.length;
+
+        const relationshipDiv = document.createElement('div');
+        relationshipDiv.classList.add('row', 'mb-2', 'relationship-item');
+        relationshipDiv.innerHTML = `
+            <div class="col-md-5">
+                <select name="relationships[${index}][id_person_2]" class="form-select" required>
+                    <option value="">Selecione uma pessoa</option>
+                    <?php foreach ($people as $person): ?>
+                        <option value="<?= $person->id ?>"><?= htmlspecialchars($person->name) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <input type="text" name="relationships[${index}][relationship]" class="form-control" 
+                    placeholder="Tipo de relacionamento" required>
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="button" class="btn btn-danger btn-sm remove-relationship-btn">Remover</button>
+            </div>
+        `;
+
+        container.appendChild(relationshipDiv);
+        attachRemoveEvent(relationshipDiv.querySelector('.remove-relationship-btn'));
+    });
+
+    // Função para anexar o evento de remover
+    function attachRemoveEvent(button) {
+        button.addEventListener('click', function() {
+            const relationshipItem = button.closest('.relationship-item');
+            relationshipItem.remove();
+        });
+    }
+
+    // Anexa o evento a botões existentes (na tela de edição)
+    document.querySelectorAll('.remove-relationship-btn').forEach(attachRemoveEvent);
+</script>

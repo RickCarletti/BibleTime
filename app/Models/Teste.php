@@ -1,11 +1,9 @@
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'database.php';
 
-class Teste
-{
+class Teste {
 
-    public static function getAll()
-    {
+    public static function getAll() {
         $conn = getDbConnection();
         $query = 'SELECT * FROM public.teste ORDER BY id';
         $stmt = $conn->prepare($query);
@@ -13,8 +11,7 @@ class Teste
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function insert($descricao)
-    {
+    public static function insert($descricao) {
         try {
             $conn = getDbConnection();
             $query = 'INSERT INTO public.teste (descricao) VALUES (:descricao)';
@@ -29,8 +26,7 @@ class Teste
     }
 
 
-    public static function delete($id)
-    {
+    public static function delete($id) {
         try {
             $conn = getDbConnection();
             $query = 'DELETE FROM public.teste WHERE id = :id';
@@ -48,8 +44,7 @@ class Teste
     }
 
 
-    public static function getById($id)
-    {
+    public static function getById($id) {
         $conn = getDbConnection();
         $query = 'SELECT * FROM public.teste WHERE id = :id';
         $stmt = $conn->prepare($query);
@@ -58,8 +53,7 @@ class Teste
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public static function update($id, $descricao)
-    {
+    public static function update($id, $descricao) {
         try {
             $conn = getDbConnection();
             $query = 'UPDATE public.teste SET descricao = :descricao WHERE id = :id';

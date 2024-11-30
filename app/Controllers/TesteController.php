@@ -1,18 +1,15 @@
 <?php
 require_once __DIR__ . '/../Models/Teste.php';
 
-class TesteController extends BaseController
-{
-    public function index()
-    {
+class TesteController extends BaseController {
+    public function index() {
         $dados = Teste::getAll();
 
         // Os dados estarão disponíveis automaticamente na view
         return (['dados' => $dados]);
     }
 
-    public function cadastrar()
-    {
+    public function cadastrar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $descricao = $_POST['descricao'];
             $success = Teste::insert($descricao);
@@ -31,8 +28,7 @@ class TesteController extends BaseController
         }
     }
 
-    public function editar($id)
-    {
+    public function editar($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $descricao = $_POST['descricao'];
             // Suponha que Teste::update seja um método que atualiza o banco de dados
@@ -57,8 +53,7 @@ class TesteController extends BaseController
         return (['item' => $registro]);
     }
 
-    public function excluir($id)
-    {
+    public function excluir($id) {
         $deleted = Teste::delete($id);
 
         if ($deleted) {
