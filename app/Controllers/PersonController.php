@@ -12,14 +12,34 @@ class PersonController extends BaseController {
 
     public function cadastrar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_POST['start_date'])) {
+                $start_date = $_POST['start_date']; // Exemplo: '31/12/2024'
+                list($day, $month, $year) = explode('/', $start_date);
+
+                // Agora você pode salvar $day, $month e $year separadamente no banco
+                $data['start_dt_day'] = $day;
+                $data['start_dt_month'] = $month;
+                $data['start_dt_year'] = $year;
+            }
+
+            if (!empty($_POST['end_date'])) {
+                $end_date = $_POST['end_date']; // Exemplo: '31/12/2024'
+                list($day, $month, $year) = explode('/', $end_date);
+
+                // Agora você pode salvar $day, $month e $year separadamente no banco
+                $data['end_dt_day'] = $day;
+                $data['end_dt_month'] = $month;
+                $data['end_dt_year'] = $year;
+            }
+
             $data = [
                 'name' => $_POST['name'],
-                'start_dt_year' => $_POST['start_dt_year'],
-                'start_dt_month' => $_POST['start_dt_month'],
-                'start_dt_day' => $_POST['start_dt_day'],
-                'end_dt_year' => $_POST['end_dt_year'],
-                'end_dt_month' => $_POST['end_dt_month'],
-                'end_dt_day' => $_POST['end_dt_day'],
+                'start_dt_year' => $data['start_dt_year'],
+                'start_dt_month' => $data['start_dt_month'],
+                'start_dt_day' => $data['start_dt_day'],
+                'end_dt_year' => $data['end_dt_year'],
+                'end_dt_month' => $data['end_dt_month'],
+                'end_dt_day' => $data['end_dt_day'],
                 'id_group' => $_POST['id_group'],
                 'sex' => $_POST['sex'],
                 'update_str' => $_POST['update_str'],
@@ -37,7 +57,7 @@ class PersonController extends BaseController {
                 $this->addDangerMessage('Erro ao cadastrar a pessoa.');
             }
 
-            header('Location: /person/index');
+            header('Location: /person/cadastrar');
             exit;
         } else {
             $people = Person::getAll();
@@ -47,14 +67,34 @@ class PersonController extends BaseController {
 
     public function editar($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_POST['start_date'])) {
+                $start_date = $_POST['start_date']; // Exemplo: '31/12/2024'
+                list($day, $month, $year) = explode('/', $start_date);
+
+                // Agora você pode salvar $day, $month e $year separadamente no banco
+                $data['start_dt_day'] = $day;
+                $data['start_dt_month'] = $month;
+                $data['start_dt_year'] = $year;
+            }
+
+            if (!empty($_POST['end_date'])) {
+                $end_date = $_POST['end_date']; // Exemplo: '31/12/2024'
+                list($day, $month, $year) = explode('/', $end_date);
+
+                // Agora você pode salvar $day, $month e $year separadamente no banco
+                $data['end_dt_day'] = $day;
+                $data['end_dt_month'] = $month;
+                $data['end_dt_year'] = $year;
+            }
+
             $data = [
                 'name' => $_POST['name'],
-                'start_dt_year' => $_POST['start_dt_year'],
-                'start_dt_month' => $_POST['start_dt_month'],
-                'start_dt_day' => $_POST['start_dt_day'],
-                'end_dt_year' => $_POST['end_dt_year'],
-                'end_dt_month' => $_POST['end_dt_month'],
-                'end_dt_day' => $_POST['end_dt_day'],
+                'start_dt_year' => $data['start_dt_year'],
+                'start_dt_month' => $data['start_dt_month'],
+                'start_dt_day' => $data['start_dt_day'],
+                'end_dt_year' => $data['end_dt_year'],
+                'end_dt_month' => $data['end_dt_month'],
+                'end_dt_day' => $data['end_dt_day'],
                 'id_group' => $_POST['id_group'],
                 'sex' => $_POST['sex'],
                 'update_str' => $_POST['update_str'],

@@ -18,8 +18,8 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nome</th>
-                                <th scope="col">Ano de Início</th>
-                                <th scope="col">Ano de Fim</th>
+                                <th scope="col">Data Inicio</th>
+                                <th scope="col">Data Fim</th>
                                 <th scope="col">Grupo</th>
                                 <th scope="col">Geração</th>
                                 <th scope="col">Ações</th>
@@ -30,8 +30,8 @@
                                 <tr>
                                     <td><?= htmlspecialchars($item->id) ?></td>
                                     <td><?= htmlspecialchars($item->name) ?></td>
-                                    <td><?= htmlspecialchars($item->start_dt_year) ?></td>
-                                    <td><?= htmlspecialchars($item->end_dt_year) ?></td>
+                                    <td><?= htmlspecialchars(sprintf("%02d", $item->start_dt_day)) ?>/<?= htmlspecialchars(sprintf("%02d", $item->start_dt_month)) ?>/<?= htmlspecialchars(sprintf("%04d", $item->start_dt_year)) ?></td>
+                                    <td><?= htmlspecialchars(sprintf("%02d", $item->end_dt_day)) ?>/<?= htmlspecialchars(sprintf("%02d", $item->end_dt_month)) ?>/<?= htmlspecialchars(sprintf("%04d", $item->end_dt_year)) ?></td>
                                     <td><?= htmlspecialchars($item->id_group) ?></td>
                                     <td><?= htmlspecialchars($item->generation) ?></td>
                                     <td>

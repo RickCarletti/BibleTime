@@ -23,6 +23,7 @@
             text-align: center;
         }
     </style>
+    <script src="https://unpkg.com/imask"></script>
 </head>
 
 <body>

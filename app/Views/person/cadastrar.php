@@ -12,33 +12,13 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Data de Início</label>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="number" name="start_dt_year" class="form-control" placeholder="Ano">
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" name="start_dt_month" class="form-control" placeholder="Mês">
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" name="start_dt_day" class="form-control" placeholder="Dia">
-                            </div>
-                        </div>
+                        <label for="start_date" class="form-label">Data de Inicio</label>
+                        <input type="text" id="start_date" name="start_date" class="form-control" placeholder="DD/MM/AAAA">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Data de Fim</label>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="number" name="end_dt_year" class="form-control" placeholder="Ano">
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" name="end_dt_month" class="form-control" placeholder="Mês">
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" name="end_dt_day" class="form-control" placeholder="Dia">
-                            </div>
-                        </div>
+                        <label for="end_date" class="form-label">Data de Fim</label>
+                        <input type="text" id="end_date" name="end_date" class="form-control" placeholder="DD/MM/AAAA">
                     </div>
 
                     <div class="mb-3">
@@ -135,4 +115,51 @@
 
     // Anexa o evento a botões existentes (na tela de edição)
     document.querySelectorAll('.remove-relationship-btn').forEach(attachRemoveEvent);
+</script>
+
+<script>
+    // Seleciona o campo de data
+    const endDateInput = document.getElementById('end_date');
+    const startDateInput = document.getElementById('start_date');
+
+    // Aplica a máscara
+    const mask_start = IMask(endDateInput, {
+        mask: '00/00/0000',
+        lazy: true, // Mostra o placeholder
+        blocks: {
+            dd: {
+                mask: IMask.MaskedRange,
+                from: 1,
+                to: 31, // Limita o dia para o intervalo de 1 a 31
+            },
+            mm: {
+                mask: IMask.MaskedRange,
+                from: 1,
+                to: 12, // Limita o mês para o intervalo de 1 a 12
+            },
+            yyyy: {
+                mask: IMask.MaskedRange
+            },
+        },
+    });
+
+    const mask_end = IMask(startDateInput, {
+        mask: '00/00/0000',
+        lazy: true, // Mostra o placeholder
+        blocks: {
+            dd: {
+                mask: IMask.MaskedRange,
+                from: 1,
+                to: 31, // Limita o dia para o intervalo de 1 a 31
+            },
+            mm: {
+                mask: IMask.MaskedRange,
+                from: 1,
+                to: 12, // Limita o mês para o intervalo de 1 a 12
+            },
+            yyyy: {
+                mask: IMask.MaskedRange
+            },
+        },
+    });
 </script>
