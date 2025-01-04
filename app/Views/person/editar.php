@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
                 <h4 class="text-center">Editar Pessoa</h4>
@@ -40,7 +40,7 @@
 
                     <div class="mb-3">
                         <label for="update_str" class="form-label">Atualização</label>
-                        <textarea name="update_str" id="update_str" class="form-control" placeholder="Informação adicional"><?= htmlspecialchars($item->update_str) ?></textarea>
+                        <textarea name="update_str" id="update_str" class="form-control" placeholder="Informação adicional" rows="10"><?= htmlspecialchars($item->update_str) ?></textarea>
                     </div>
 
                     <div class="mb-3">

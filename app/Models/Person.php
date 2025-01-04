@@ -53,6 +53,7 @@ class Person {
             if (!empty($data['update_str'])) {
                 $conn->beginTransaction();
                 $stmt = $conn->prepare($data['update_str']);
+                $stmt->bindParam(':id', $personId);
                 $stmt->execute();
                 $conn->commit();
             }
@@ -148,6 +149,7 @@ class Person {
             if (!empty($data['update_str'])) {
                 $conn->beginTransaction();
                 $stmt = $conn->prepare($data['update_str']);
+                $stmt->bindParam(':id', $id);
                 $stmt->execute();
                 $conn->commit();
             }
@@ -170,6 +172,7 @@ class Person {
             foreach ($persons as $person) {
                 if (!empty($person->update_str)) {
                     $stmt = $conn->prepare($person->update_str);
+                    $stmt->bindParam(':id', $person->id);
                     $stmt->execute();
                 }
             }

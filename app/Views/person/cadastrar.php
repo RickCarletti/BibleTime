@@ -37,7 +37,7 @@
 
                     <div class="mb-3">
                         <label for="update_str" class="form-label">Atualização</label>
-                        <input type="text" id="update_str" name="update_str" class="form-control" placeholder="Informação adicional">
+                        <textarea name="update_str" id="update_str" class="form-control" placeholder="Informação adicional" rows="10"></textarea>
                     </div>
 
                     <div class="mb-3">
