@@ -24,6 +24,66 @@
         }
     </style>
     <script src="https://unpkg.com/imask"></script>
+
+    <!-- INI: VIS -->
+    <!-- INI: VIS-NETWORK -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <!-- END: VIS-NETWORK -->
+    <!-- INI: VIS-TIMELINE -->
+    <script type="text/javascript"
+        src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
+        type="text/css" />
+    <!-- END: VIS-TIMELINE -->
+    <!-- END: VIS -->
+
+    <!-- INI: BOOTSTRAP -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- END: BOOTSTRAP -->
+
+    <!-- INI: CONFIGS PESSOAIS -->
+    <style>
+        .base {
+            width: 100%;
+            /* Preencherá toda a largura do elemento pai */
+            min-height: 200px;
+            /* Defina uma altura fixa ou ajustável */
+            border-radius: 2%;
+        }
+
+        #nodes_base {
+            width: 100%;
+            /* Preencherá toda a largura do elemento pai */
+            height: 300px;
+            /* Defina uma altura fixa ou ajustável */
+            border: 1px solid lightgray;
+        }
+        #custom-axis {
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #ddd;
+            padding: 0 10px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .axis-label {
+            text-align: center;
+        }
+    </style>
+    <!-- END: CONFIGS PESSOAIS -->
 </head>
 
 <body>
@@ -72,6 +132,12 @@
                             </ul>
                         </li>
 
+                        <!-- Menu de Event -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="/graphic/index">
+                                Graficos
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
