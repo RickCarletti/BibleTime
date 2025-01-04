@@ -2,7 +2,7 @@
     <div class="col-md-10">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
-                <h4 class="text-center">Consulta de Pessoas</h4>
+                <h4 class="text-center">Consulta de Eventos</h4>
             </div>
             <div class="card-body">
 
@@ -18,11 +18,8 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nome</th>
-                                <th scope="col">Data Inicio</th>
-                                <th scope="col">Data Fim</th>
-                                <th scope="col">Idade</th>
-                                <th scope="col">Grupo</th>
-                                <th scope="col">Geração</th>
+                                <th scope="col">Data</th>
+                                <!-- <th scope="col">Atualização</th> -->
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -31,16 +28,11 @@
                                 <tr>
                                     <td><?= htmlspecialchars($item->id) ?></td>
                                     <td><?= htmlspecialchars($item->name) ?></td>
-                                    <td><?= htmlspecialchars(sprintf('%02d/%02d/%04d', $item->start_dt_day, $item->start_dt_month, $item->start_dt_year)) ?></td>
-                                    <td><?= htmlspecialchars(sprintf('%02d/%02d/%04d', $item->end_dt_day, $item->end_dt_month, $item->end_dt_year)) ?></td>
+                                    <td><?= htmlspecialchars(sprintf('%02d/%02d/%04d', $item->day, $item->month, $item->year)) ?></td>
+                                    <!-- <td><?= htmlspecialchars($item->update_str) ?></td> -->
                                     <td>
-                                        <?= $item->end_dt_year - $item->start_dt_year ?>
-                                    </td>
-                                    <td><?= htmlspecialchars($item->id_group) ?></td>
-                                    <td><?= htmlspecialchars($item->generation) ?></td>
-                                    <td>
-                                        <a href="/person/editar/<?= $item->id ?>" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="/person/excluir/<?= $item->id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
+                                        <a href="/event/editar/<?= $item->id ?>" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="/event/excluir/<?= $item->id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -49,7 +41,7 @@
                 <?php endif; ?>
 
                 <div class="mt-3">
-                    <a href="/person/cadastrar" class="btn btn-primary">Cadastrar Nova Pessoa</a>
+                    <a href="/event/cadastrar" class="btn btn-primary">Cadastrar Novo Evento</a>
                 </div>
 
             </div>

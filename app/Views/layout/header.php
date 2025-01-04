@@ -58,6 +58,19 @@
                                 <li><a class="dropdown-item" href="/person/cadastrar">Cadastrar Pessoa</a></li>
                             </ul>
                         </li>
+
+
+                        <!-- Menu de Event -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuEvent" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Evento
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="menuEvent">
+                                <li><a class="dropdown-item" href="/event/index">Consultar Eventos</a></li>
+                                <li><a class="dropdown-item" href="/event/cadastrar">Cadastrar Evento</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>

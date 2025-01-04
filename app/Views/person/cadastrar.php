@@ -88,7 +88,7 @@
                 <select name="relationships[${index}][id_person_2]" class="form-select" required>
                     <option value="">Selecione uma pessoa</option>
                     <?php foreach ($people as $person): ?>
-                        <option value="<?= $person->id ?>"><?= htmlspecialchars($person->name) ?></option>
+                        <option value="<?= $person->id ?>">[<?= htmlspecialchars($person->id) ?>] <?= htmlspecialchars($person->name) ?>(<?= htmlspecialchars($person->generation) ?>)</option>
                     <?php endforeach; ?>
                 </select>
             </div>

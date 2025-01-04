@@ -132,7 +132,6 @@ class Person {
             PersonPerson::deleteByPersonId($id);
             if (!empty($data['relationships'])) {
                 foreach ($data['relationships'] as $relationship) {
-                    $relationship['id_person_1'] = $id;
                     PersonPerson::insert($relationship);
                 }
             }

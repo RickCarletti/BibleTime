@@ -15,12 +15,12 @@
 
                     <div class="mb-3">
                         <label for="start_date" class="form-label">Data de Inicio</label>
-                        <input type="text" id="start_date" name="start_date" class="form-control" placeholder="DD/MM/AAAA" value="<?= htmlspecialchars(sprintf("%02d", $item->start_dt_day)) ?>/<?= htmlspecialchars(sprintf("%02d", $item->start_dt_month)) ?>/<?= htmlspecialchars(sprintf("%04d", $item->start_dt_year)) ?>">
+                        <input type="text" id="start_date" name="start_date" class="form-control" placeholder="DD/MM/AAAA" value="<?= isset($item->start_dt_day, $item->start_dt_month, $item->start_dt_year) ? sprintf('%02d/%02d/%04d', $item->start_dt_day, $item->start_dt_month, $item->start_dt_year) : '' ?>">
                     </div>
 
                     <div class="mb-3">
                         <label for="end_date" class="form-label">Data de Fim</label>
-                        <input type="text" id="end_date" name="end_date" class="form-control" placeholder="DD/MM/AAAA" value="<?= htmlspecialchars(sprintf("%02d", $item->end_dt_day)) ?>/<?= htmlspecialchars(sprintf("%02d", $item->end_dt_month)) ?>/<?= htmlspecialchars(sprintf("%04d", $item->end_dt_year)) ?>">
+                        <input type="text" id="end_date" name="end_date" class="form-control" placeholder="DD/MM/AAAA" value="<?= isset($item->end_dt_day, $item->end_dt_month, $item->end_dt_year) ? sprintf('%02d/%02d/%04d', $item->end_dt_day, $item->end_dt_month, $item->end_dt_year) : '' ?>">
                     </div>
 
                     <div class="mb-3">
@@ -40,8 +40,7 @@
 
                     <div class="mb-3">
                         <label for="update_str" class="form-label">Atualização</label>
-                        <input type="text" id="update_str" name="update_str" class="form-control"
-                            placeholder="Informação adicional" value="<?= htmlspecialchars($item->update_str) ?>">
+                        <textarea name="update_str" id="update_str" class="form-control" placeholder="Informação adicional"><?= htmlspecialchars($item->update_str) ?></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -68,23 +67,31 @@
                             <?php if (!empty($relationships)): ?>
                                 <?php foreach ($relationships as $index => $relationship): ?>
                                     <div class="row mb-2 relationship-item">
-                                        <div class="col-md-5">
-                                            <select name="relationships[<?= $index ?>][id_person_2]" class="form-select" required>
+                                        <div class="col-md-4">
+                                            <select name="relationships[<?= $index ?>][id_person_1]" class="form-select" required>
                                                 <option value="">Selecione uma pessoa</option>
                                                 <?php foreach ($people as $person): ?>
-                                                    <option value="<?= $person->id ?>"
-                                                        <?= $person->id == $relationship->id_person_2 ? 'selected' : '' ?>>
-                                                        <?= htmlspecialchars($person->name) ?>
+                                                    <option value="<?= $person->id ?>" <?= $person->id == $relationship->id_person_1 ? 'selected' : '' ?>>
+                                                        [<?= htmlspecialchars($person->id) ?>] <?= htmlspecialchars($person->name) ?>(<?= htmlspecialchars($person->generation) ?>)
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-5">
-                                            <input type="text" name="relationships[<?= $index ?>][relationship]"
-                                                class="form-control" placeholder="Tipo de relacionamento"
-                                                value="<?= htmlspecialchars($relationship->relationship) ?>" required>
+                                        <div class="col-md-4">
+                                            <select name="relationships[<?= $index ?>][id_person_2]" class="form-select" required>
+                                                <option value="">Selecione uma pessoa</option>
+                                                <?php foreach ($people as $person): ?>
+                                                    <option value="<?= $person->id ?>" <?= $person->id == $relationship->id_person_2 ? 'selected' : '' ?>>
+                                                        [<?= htmlspecialchars($person->id) ?>] <?= htmlspecialchars($person->name) ?>(<?= htmlspecialchars($person->generation) ?>)
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
-                                        <div class="col-md-2 text-end">
+                                        <div class="col-md-3">
+                                            <input type="text" name="relationships[<?= $index ?>][relationship]" class="form-control"
+                                                placeholder="Tipo de relacionamento" value="<?= htmlspecialchars($relationship->relationship) ?>" required>
+                                        </div>
+                                        <div class="col-md-1 text-end">
                                             <button type="button" class="btn btn-danger btn-sm remove-relationship-btn">Remover</button>
                                         </div>
                                     </div>
@@ -110,36 +117,47 @@
 
 
 <script>
-    // Script para adicionar relacionamentos
     document.getElementById('add-relationship-btn').addEventListener('click', function() {
         const container = document.getElementById('relationship-container');
         const index = container.children.length;
 
+        // Obtém o ID da pessoa atual
+        const currentPersonId = <?= $item->id ?>;
+
         const relationshipDiv = document.createElement('div');
         relationshipDiv.classList.add('row', 'mb-2', 'relationship-item');
         relationshipDiv.innerHTML = `
-            <div class="col-md-5">
-                <select name="relationships[${index}][id_person_2]" class="form-select" required>
-                    <option value="">Selecione uma pessoa</option>
-                    <?php foreach ($people as $person): ?>
-                        <option value="<?= $person->id ?>"><?= htmlspecialchars($person->name) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="col-md-5">
-                <input type="text" name="relationships[${index}][relationship]" class="form-control" 
-                    placeholder="Tipo de relacionamento" required>
-            </div>
-            <div class="col-md-2 text-end">
-                <button type="button" class="btn btn-danger btn-sm remove-relationship-btn">Remover</button>
-            </div>
-        `;
+        <div class="col-md-4">
+            <select name="relationships[${index}][id_person_1]" class="form-select" required>
+                <option value="">Selecione uma pessoa</option>
+                <?php foreach ($people as $person): ?>
+                    <option value="<?= $person->id ?>" <?= $person->id == $item->id ? 'selected' : '' ?>>
+                        [<?= htmlspecialchars($person->id) ?>] <?= htmlspecialchars($person->name) ?>(<?= htmlspecialchars($person->generation) ?>)
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select name="relationships[${index}][id_person_2]" class="form-select" required>
+                <option value="">Selecione uma pessoa</option>
+                <?php foreach ($people as $person): ?>
+                    <option value="<?= $person->id ?>">[<?= htmlspecialchars($person->id) ?>] <?= htmlspecialchars($person->name) ?>(<?= htmlspecialchars($person->generation) ?>)</option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="relationships[${index}][relationship]" class="form-control" 
+                placeholder="Tipo de relacionamento" required>
+        </div>
+        <div class="col-md-1 text-end">
+            <button type="button" class="btn btn-danger btn-sm remove-relationship-btn">Remover</button>
+        </div>
+    `;
 
         container.appendChild(relationshipDiv);
         attachRemoveEvent(relationshipDiv.querySelector('.remove-relationship-btn'));
     });
 
-    // Função para anexar o evento de remover
     function attachRemoveEvent(button) {
         button.addEventListener('click', function() {
             const relationshipItem = button.closest('.relationship-item');
@@ -147,7 +165,6 @@
         });
     }
 
-    // Anexa o evento a botões existentes (na tela de edição)
     document.querySelectorAll('.remove-relationship-btn').forEach(attachRemoveEvent);
 </script>
 
