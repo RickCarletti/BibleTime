@@ -49,6 +49,13 @@ class Person {
             }
 
             $conn->commit();
+
+            if (!empty($data['update_str'])) {
+                $conn->beginTransaction();
+                $stmt = $conn->prepare($data['update_str']);
+                $stmt->execute();
+                $conn->commit();
+            }
             return true;
         } catch (PDOException $e) {
             $conn->rollBack();
@@ -137,6 +144,38 @@ class Person {
             }
 
             $conn->commit();
+
+            if (!empty($data['update_str'])) {
+                $conn->beginTransaction();
+                $stmt = $conn->prepare($data['update_str']);
+                $stmt->execute();
+                $conn->commit();
+            }
+
+            return true;
+        } catch (PDOException $e) {
+            $conn->rollBack();
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public static function updateAllStr() {
+        try {
+            $conn = getDbConnection();
+            $conn->beginTransaction();
+
+            $persons = Person::getAll();
+
+            foreach ($persons as $person) {
+                if (!empty($person->update_str)) {
+                    $stmt = $conn->prepare($person->update_str);
+                    $stmt->execute();
+                }
+            }
+
+            $conn->commit();
+
             return true;
         } catch (PDOException $e) {
             $conn->rollBack();

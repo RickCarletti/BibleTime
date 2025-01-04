@@ -56,6 +56,7 @@
                             <ul class="dropdown-menu" aria-labelledby="menuPerson">
                                 <li><a class="dropdown-item" href="/person/index">Consultar Pessoas</a></li>
                                 <li><a class="dropdown-item" href="/person/cadastrar">Cadastrar Pessoa</a></li>
+                                <li><a class="dropdown-item" href="/person/atualizar">Atualizar Pessoas</a></li>
                             </ul>
                         </li>
 

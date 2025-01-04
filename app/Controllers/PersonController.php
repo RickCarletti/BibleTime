@@ -135,4 +135,17 @@ class PersonController extends BaseController {
         header('Location: /person/index');
         exit;
     }
+
+    public function atualizar() {
+        $atualizacao = Person::updateAllStr();
+
+        if ($atualizacao) {
+            $this->addSuccessMessage('Pessoas atualizadas com sucesso!');
+        } else {
+            $this->addDangerMessage('Erro na atualização');
+        }
+
+        header('Location: /person/index');
+        exit;
+    }
 }
