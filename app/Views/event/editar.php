@@ -15,14 +15,12 @@
                     <div class="mb-3">
                         <label for="date" class="form-label">Data</label>
                         <input type="text" id="date" name="date" class="form-control" placeholder="DD/MM/AAAA"
-                            value="<?= isset($item->day, $item->month, $item->year) ? sprintf('%02d/%02d/%04d', $item->day, $item->month, $item->year) : '' ?>"
-                            required>
+                            value="<?= isset($item->day, $item->month, $item->year) ? sprintf('%02d/%02d/%04d', $item->day, $item->month, $item->year) : '' ?>">
                     </div>
 
                     <div class="mb-3">
-                        <label for="update_str" class="form-label">Informações Adicionais</label>
-                        <input type="text" id="update_str" name="update_str" class="form-control" placeholder="Informações adicionais"
-                            value="<?= htmlspecialchars($item->update_str ?? '') ?>">
+                        <label for="update_str" class="form-label">Atualização</label>
+                        <textarea name="update_str" id="update_str" class="form-control" placeholder="Informação adicional" rows="10"><?= htmlspecialchars($item->update_str) ?></textarea>
                     </div>
 
                     <div class="d-grid">

@@ -15,7 +15,9 @@
         [
             <?php
             foreach ($persons as $person):
-                echo "{ id: $person->id, label: '$person->name', level: $person->generation },"; // Use uma propriedade para geração ou nível hierárquico
+                if (!is_null($person->generation)) {
+                    echo "{ id: $person->id, label: '$person->name', level: $person->generation },"; // Use uma propriedade para geração ou nível hierárquico
+                }
             endforeach;
             ?>
         ]

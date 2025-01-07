@@ -51,6 +51,11 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- END: BOOTSTRAP -->
 
+    <!-- INI: SELECT2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- END: SELECT2 -->
+
     <!-- INI: CONFIGS PESSOAIS -->
     <style>
         .base {
@@ -68,6 +73,7 @@
             /* Defina uma altura fixa ou ajustável */
             border: 1px solid lightgray;
         }
+
         #custom-axis {
             height: 50px;
             display: flex;

@@ -22,19 +22,44 @@ class Person {
                 (:name, :start_dt_year, :start_dt_month, :start_dt_day, :end_dt_year, :end_dt_month, :end_dt_day, :id_group, :sex, :update_str, :generation, :start_unknown, :end_unknown)';
 
             $stmt = $conn->prepare($query);
-            $stmt->bindParam(':name', $data['name']);
-            $stmt->bindParam(':start_dt_year', $data['start_dt_year']);
-            $stmt->bindParam(':start_dt_month', $data['start_dt_month']);
-            $stmt->bindParam(':start_dt_day', $data['start_dt_day']);
-            $stmt->bindParam(':end_dt_year', $data['end_dt_year']);
-            $stmt->bindParam(':end_dt_month', $data['end_dt_month']);
-            $stmt->bindParam(':end_dt_day', $data['end_dt_day']);
-            $stmt->bindParam(':id_group', $data['id_group']);
-            $stmt->bindParam(':sex', $data['sex']);
-            $stmt->bindParam(':update_str', $data['update_str']);
-            $stmt->bindParam(':generation', $data['generation']);
-            $stmt->bindParam(':start_unknown', $data['start_unknown'], PDO::PARAM_BOOL);
-            $stmt->bindParam(':end_unknown', $data['end_unknown'], PDO::PARAM_BOOL);
+
+            // Mapeamento de parâmetros para substituição
+            $params = [
+                ':name' => $data['name'],
+                ':start_dt_year' => $data['start_dt_year'],
+                ':start_dt_month' => $data['start_dt_month'],
+                ':start_dt_day' => $data['start_dt_day'],
+                ':end_dt_year' => $data['end_dt_year'],
+                ':end_dt_month' => $data['end_dt_month'],
+                ':end_dt_day' => $data['end_dt_day'],
+                ':id_group' => $data['id_group'],
+                ':sex' => $data['sex'],
+                ':update_str' => $data['update_str'],
+                ':generation' => $data['generation'],
+                ':start_unknown' => $data['start_unknown'] ? 'TRUE' : 'FALSE',
+                ':end_unknown' => $data['end_unknown'] ? 'TRUE' : 'FALSE',
+            ];
+
+            // Bind dos parâmetros
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
+
+            // Gerar o SQL final substituindo os placeholders
+            $finalQuery = $query;
+            foreach ($params as $key => $value) {
+                if ($value === null) {
+                    $value = 'NULL';
+                } elseif (is_string($value)) {
+                    $value = "'" . addslashes($value) . "'";
+                }
+                $finalQuery = str_replace($key, $value, $finalQuery);
+            }
+
+            // Salvar a query final em um arquivo
+            error_log($finalQuery);
+
+            // Executar a query
             $stmt->execute();
 
             $personId = $conn->lastInsertId();

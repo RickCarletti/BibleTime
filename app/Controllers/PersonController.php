@@ -52,9 +52,9 @@ class PersonController extends BaseController {
             $success = Person::insert($this->replaceEmptyStringsWithNull($data));
 
             if ($success) {
-                $this->addSuccessMessage('Nova pessoa cadastrada com sucesso!');
+                $this->addSuccessMessage('Nova pessoa cadastrada com sucesso! ' .  $_POST['name']);
             } else {
-                $this->addDangerMessage('Erro ao cadastrar a pessoa.');
+                $this->addDangerMessage('Erro ao cadastrar a pessoa.' .  $_POST['name']);
             }
 
             header('Location: /person/cadastrar');

@@ -23,6 +23,16 @@ class Event {
             $stmt->bindParam(':year', $data['year']);
             $stmt->bindParam(':update_str', $data['update_str']);
             $stmt->execute();
+
+            $eventId = $conn->lastInsertId();
+
+            if (!empty($data['update_str'])) {
+                $conn->beginTransaction();
+                $stmt = $conn->prepare($data['update_str']);
+                $stmt->bindParam(':id', $eventId);
+                $stmt->execute();
+                $conn->commit();
+            }
             return true; // Sucesso
         } catch (PDOException $e) {
             // Lidar com o erro
@@ -77,10 +87,15 @@ class Event {
             $stmt->bindParam(':update_str', $data['update_str']);
             $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
-                return true; // Sucesso
+            if (!empty($data['update_str'])) {
+                $conn->beginTransaction();
+                $stmt = $conn->prepare($data['update_str']);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                $conn->commit();
             }
-            return false; // Nenhuma linha foi atualizada
+            
+            return true;
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false; // Falha na execução

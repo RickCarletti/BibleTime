@@ -85,7 +85,7 @@
         relationshipDiv.classList.add('row', 'mb-2', 'relationship-item');
         relationshipDiv.innerHTML = `
             <div class="col-md-5">
-                <select name="relationships[${index}][id_person_2]" class="form-select" required>
+                <select name="relationships[${index}][id_person_2]" class="form-select select2" required>
                     <option value="">Selecione uma pessoa</option>
                     <?php foreach ($people as $person): ?>
                         <option value="<?= $person->id ?>">[<?= htmlspecialchars($person->id) ?>] <?= htmlspecialchars($person->name) ?>(<?= htmlspecialchars($person->generation) ?>)</option>
@@ -103,6 +103,8 @@
 
         container.appendChild(relationshipDiv);
         attachRemoveEvent(relationshipDiv.querySelector('.remove-relationship-btn'));
+
+        $('.select2').select2();
     });
 
     // Função para anexar o evento de remover
